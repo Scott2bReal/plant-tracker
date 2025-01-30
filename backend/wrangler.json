@@ -1,6 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "backend",
-  "main": "src/index.ts",
-  "compatibility_date": "2025-01-30"
+  "name": "plant-tracker-backend",
+  "main": "src/main.ts",
+  "compatibility_date": "2025-01-30",
+  "node_compat": true,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "plant_tracker",
+      "database_id": "306de08d-9f1e-4478-8925-9de936ad3c49"
+    }
+  ]
 }
