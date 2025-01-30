@@ -5,7 +5,7 @@ function App() {
   const query = createQuery(() => ({
     queryKey: ['basic query'],
     queryFn: async () => {
-      const result = await fetch('http://localhost:8787')
+      const result = await fetch(import.meta.env.VITE_BACKEND_BASE_URL)
       if (!result.ok) throw new Error('Failed to fetch data')
       return result.json()
     },
