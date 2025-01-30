@@ -1,31 +1,25 @@
-import { createSignal } from 'solid-js'
+import { createQuery } from '@tanstack/solid-query'
 import './App.css'
-import solidLogo from './assets/solid.svg'
-import viteLogo from '/vite.svg'
 
 function App() {
-  const [count, setCount] = createSignal(0)
+  const query = createQuery(() => ({
+    queryKey: ['basic query'],
+    queryFn: async () => {
+      const result = await fetch('http://localhost:8787')
+      if (!result.ok) throw new Error('Failed to fetch data')
+      return result.json()
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    throwOnError: true, // Throw an error if the query fails
+  }))
 
   return (
     <>
-      <div>
-        <a class="flex text-sm" href="https://vite.dev" target="_blank">
-          <img src={viteLogo} alt="Vite logo" />
-        </a>
-        <a href="https://solidjs.com" target="_blank">
-          <img src={solidLogo} alt="Solid logo" />
-        </a>
-      </div>
-      <h1>Vite + Solid</h1>
-      <div>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count()}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p>Click on the Vite and Solid logos to learn more</p>
+      <h1>Data from backend</h1>
+      <h2>Status</h2>
+      <p>{query.status}</p>
+      <h3>Data</h3>
+      <pre>{JSON.stringify(query.data, null, 2)}</pre>
     </>
   )
 }
