@@ -1,18 +1,8 @@
-import { createQuery, focusManager } from '@tanstack/solid-query'
-import { onCleanup } from 'solid-js'
+import { createQuery } from '@tanstack/solid-query'
 import './App.css'
 import { apiFetch } from './lib/api-fetch'
 
 function App() {
-  const callback = () => {
-    console.log('Document focused', focusManager.isFocused())
-  }
-
-  document.addEventListener('focus', callback)
-  onCleanup(() => {
-    document.removeEventListener('focus', callback)
-  })
-
   const queryResult = createQuery(() => ({
     queryKey: ['basic query'],
     queryFn: () => apiFetch('/plants'),
