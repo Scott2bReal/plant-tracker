@@ -8,7 +8,7 @@ function App() {
     queryFn: () => apiFetch('/rooms'),
     staleTime: 1000 * 60 * 5, // 5 minutes
     // throwOnError: true, // Throw an error if the query fails
-    refetchOnWindowFocus: 'always',
+    refetchOnWindowFocus: true,
   }))
 
   return (
