@@ -5,7 +5,7 @@ import { apiFetch } from './lib/api-fetch'
 function App() {
   const queryResult = createQuery(() => ({
     queryKey: ['basic query'],
-    queryFn: () => apiFetch('/plants'),
+    queryFn: () => apiFetch('/rooms'),
     staleTime: 1000 * 60 * 5, // 5 minutes
     // throwOnError: true, // Throw an error if the query fails
     refetchOnWindowFocus: 'always',
