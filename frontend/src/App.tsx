@@ -1,25 +1,33 @@
-import { createQuery } from '@tanstack/solid-query'
+import { createQuery, focusManager } from '@tanstack/solid-query'
+import { onCleanup } from 'solid-js'
 import './App.css'
+import { apiFetch } from './lib/api-fetch'
 
 function App() {
-  const query = createQuery(() => ({
+  const callback = () => {
+    console.log('Document focused', focusManager.isFocused())
+  }
+
+  document.addEventListener('focus', callback)
+  onCleanup(() => {
+    document.removeEventListener('focus', callback)
+  })
+
+  const queryResult = createQuery(() => ({
     queryKey: ['basic query'],
-    queryFn: async () => {
-      const result = await fetch(import.meta.env.VITE_BACKEND_BASE_URL)
-      if (!result.ok) throw new Error('Failed to fetch data')
-      return result.json()
-    },
+    queryFn: () => apiFetch('/plants'),
     staleTime: 1000 * 60 * 5, // 5 minutes
-    throwOnError: true, // Throw an error if the query fails
+    // throwOnError: true, // Throw an error if the query fails
+    refetchOnWindowFocus: 'always',
   }))
 
   return (
     <>
       <h1>Data from backend</h1>
       <h2>Status</h2>
-      <p>{query.status}</p>
+      <p>{queryResult.status}</p>
       <h3>Data</h3>
-      <pre>{JSON.stringify(query.data, null, 2)}</pre>
+      <pre>{JSON.stringify(queryResult.data, null, 2)}</pre>
     </>
   )
 }

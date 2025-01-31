@@ -60,6 +60,9 @@ importers:
       '@eslint/js':
         specifier: ^9.19.0
         version: 9.19.0
+      '@tanstack/solid-query-devtools':
+        specifier: ^5.65.0
+        version: 5.65.0(@tanstack/solid-query@5.65.0(solid-js@1.9.4))(solid-js@1.9.4)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.1)
@@ -1112,6 +1115,15 @@ packages:
 
   '@tanstack/query-core@5.65.0':
     resolution: {integrity: sha512-Bnnq/1axf00r2grRT6gUyIkZRKzhHs+p4DijrCQ3wMlA3D3TTT71gtaSLtqnzGddj73/7X5JDGyjiSLdjvQN4w==}
+
+  '@tanstack/query-devtools@5.65.0':
+    resolution: {integrity: sha512-g5y7zc07U9D3esMdqUfTEVu9kMHoIaVBsD0+M3LPdAdD710RpTcLiNvJY1JkYXqkq9+NV+CQoemVNpQPBXVsJg==}
+
+  '@tanstack/solid-query-devtools@5.65.0':
+    resolution: {integrity: sha512-dnBW9voc/jiZq5Ur8GxqJPKfFNEDl/fmoVSIIk01bXXkGaNOuRZhYYbAgR0s8CBhl6O7ODXWl6L0m1ZPZMg3BQ==}
+    peerDependencies:
+      '@tanstack/solid-query': ^5.65.0
+      solid-js: ^1.6.0
 
   '@tanstack/solid-query@5.65.0':
     resolution: {integrity: sha512-pYjawdb7vyx91BIMgFrHeNZKXnMtFCXivJKAYOTTZJtuivqvRPkH1R5RV/C243OAC/kLWZNMcIgVOGrDJmVDsw==}
@@ -3115,6 +3127,14 @@ snapshots:
     optional: true
 
   '@tanstack/query-core@5.65.0': {}
+
+  '@tanstack/query-devtools@5.65.0': {}
+
+  '@tanstack/solid-query-devtools@5.65.0(@tanstack/solid-query@5.65.0(solid-js@1.9.4))(solid-js@1.9.4)':
+    dependencies:
+      '@tanstack/query-devtools': 5.65.0
+      '@tanstack/solid-query': 5.65.0(solid-js@1.9.4)
+      solid-js: 1.9.4
 
   '@tanstack/solid-query@5.65.0(solid-js@1.9.4)':
     dependencies:

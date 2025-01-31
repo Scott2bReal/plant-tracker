@@ -3,7 +3,7 @@
   "name": "plant-tracker-backend",
   "main": "src/main.ts",
   "compatibility_date": "2025-01-30",
-  "node_compat": true,
+  "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
     {
       "binding": "DB",
