@@ -25,4 +25,8 @@ app.get('/plants', async (c) => {
   return c.json([{ name: 'Fern' }, { name: 'Palm' }, { name: 'Cactus' }])
 })
 
+app.notFound((c) => {
+  return c.json('Not found', 404)
+})
+
 export default app
