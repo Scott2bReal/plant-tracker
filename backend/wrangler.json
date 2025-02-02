@@ -3,14 +3,13 @@
   "name": "plant-tracker-backend",
   "main": "src/main.ts",
   "compatibility_date": "2025-01-30",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "plant_tracker",
       "database_id": "306de08d-9f1e-4478-8925-9de936ad3c49",
+      "preview_database_id": "996195f2-2bb4-416b-b955-d1a5d006f30a",
       "migrations_dir": "./migrations"
     }
   ]

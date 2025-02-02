@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tanstack/solid-query": "^5.65.0",
+    "hono": "^4.6.19",
     "solid-js": "^1.9.3"
   },
   "devDependencies": {
