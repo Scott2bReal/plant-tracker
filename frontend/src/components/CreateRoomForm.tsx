@@ -1,7 +1,7 @@
 import { CreateRoomRouteType } from '#backend/src/main'
 import { createMutation, useQueryClient } from '@tanstack/solid-query'
-import { hc } from 'hono/client'
 import { Component, createSignal } from 'solid-js'
+import { apiClient } from '../lib/api-client'
 
 interface Room {
   id: number
@@ -9,38 +9,30 @@ interface Room {
   lastWatered: string
 }
 
-const optimisticlyUpdateData = (rooms: Room[], newRoom: Room) => {
-  return rooms.filter((room) => room.id !== newRoom.id).concat(newRoom)
+const createRoom = async (name: string) => {
+  const response = await apiClient<CreateRoomRouteType>().rooms.create.$post({
+    json: {
+      name,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to create room')
+  }
+
+  return await response.json()
 }
 
 const CreateRoomForm: Component = () => {
   const [name, setName] = createSignal<string>('')
 
-  const mutationFn = async () => {
-    const response = await hc<CreateRoomRouteType>(
-      import.meta.env.VITE_BACKEND_BASE_URL
-    ).rooms.create.$post({
-      json: {
-        name: name(),
-      },
-    })
-
-    return await response.json()
-  }
-
   const queryClient = useQueryClient()
   const createRoomMutation = createMutation<Room>(() => ({
-    mutationFn,
+    mutationFn: async () => createRoom(name()),
     mutationKey: ['createRoom'],
-    onSuccess: (newRoom) => {
+    onSuccess: () => {
       setName('')
       queryClient.invalidateQueries({ queryKey: ['allRooms'] })
-      queryClient.setQueryData<Room[]>(['allRooms'], (rooms) => {
-        if (!rooms) {
-          return [newRoom]
-        }
-        return optimisticlyUpdateData(rooms, newRoom)
-      })
     },
   }))
 
