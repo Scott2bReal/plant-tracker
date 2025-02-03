@@ -2,7 +2,8 @@
   "name": "plant-tracker",
   "scripts": {
     "frontend:dev": "pnpm --filter frontend dev",
-    "backend:dev": "pnpm --filter backend dev"
+    "backend:dev": "pnpm --filter backend dev",
+    "check": "./scripts/check.sh"
   },
   "imports": {
     "#frontend": "./frontend",

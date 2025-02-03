@@ -5,7 +5,7 @@
     "deploy": "wrangler deploy --minify",
     "db-migrate": "wrangler d1 migrations apply plant_tracker --remote",
     "types": "tsc --noEmit --pretty",
-    "link": "eslint .",
+    "lint": "eslint .",
     "format": "prettier --write ."
   },
   "dependencies": {
