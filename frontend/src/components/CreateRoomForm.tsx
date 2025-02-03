@@ -1,8 +1,17 @@
 import { CreateRoomRouteType } from '#backend/src/main'
-import { createMutation } from '@tanstack/solid-query'
+import { createMutation, useQueryClient } from '@tanstack/solid-query'
 import { hc } from 'hono/client'
 import { Component, createSignal } from 'solid-js'
-import { queryClient } from '..'
+
+interface Room {
+  id: number
+  name: string
+  lastWatered: string
+}
+
+const optimisticlyUpdateData = (rooms: Room[], newRoom: Room) => {
+  return rooms.filter((room) => room.id !== newRoom.id).concat(newRoom)
+}
 
 const CreateRoomForm: Component = () => {
   const [name, setName] = createSignal<string>('')
@@ -19,12 +28,19 @@ const CreateRoomForm: Component = () => {
     return await response.json()
   }
 
-  const createRoomMutation = createMutation<typeof mutationFn>(() => ({
+  const queryClient = useQueryClient()
+  const createRoomMutation = createMutation<Room>(() => ({
     mutationFn,
     mutationKey: ['createRoom'],
-    onSuccess: () => {
+    onSuccess: (newRoom) => {
       setName('')
       queryClient.invalidateQueries({ queryKey: ['allRooms'] })
+      queryClient.setQueryData<Room[]>(['allRooms'], (rooms) => {
+        if (!rooms) {
+          return [newRoom]
+        }
+        return optimisticlyUpdateData(rooms, newRoom)
+      })
     },
   }))
 

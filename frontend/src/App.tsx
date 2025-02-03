@@ -1,14 +1,11 @@
 import './App.css'
-import CreateRoomForm from './components/CreateRoomForm'
 import Rooms from './components/Rooms'
 
 function App() {
   return (
-    <>
-      <h1>Create a room</h1>
-      <CreateRoomForm />
+    <main class="p-4 text-center">
       <Rooms />
-    </>
+    </main>
   )
 }
 

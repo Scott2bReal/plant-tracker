@@ -70,12 +70,35 @@ const createRoomRoute = app.post(
     const db = drizzle(c.env.DB)
     const result = await db
       .insert(rooms)
-      .values({ name, lastWatered: new Date().toISOString() })
+      .values({ name, lastWatered: new Date().toLocaleDateString() })
       .execute()
     return c.json(result)
   }
 )
 export type CreateRoomRouteType = typeof createRoomRoute
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const waterRoomRoute = app.put(
+  `/rooms/:id/water`,
+  zValidator(
+    'param',
+    z.object({
+      id: z.string(),
+      lastWatered: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id, lastWatered } = c.req.valid('param')
+    const db = drizzle(c.env.DB)
+    const result = await db
+      .update(rooms)
+      .set({ lastWatered })
+      .where(eq(rooms.id, parseInt(id)))
+      .execute()
+    return c.json(result)
+  }
+)
+export type WaterRoomRouteType = typeof waterRoomRoute
 
 app.notFound((c) => {
   return c.json('Not found', 404)

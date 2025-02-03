@@ -5,7 +5,7 @@ import App from './App.tsx'
 import './index.css'
 
 const root = document.getElementById('root')
-export const queryClient = new QueryClient()
+const queryClient = new QueryClient()
 
 render(
   () => (
