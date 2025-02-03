@@ -44,7 +44,7 @@ const WaterRoomButton: Component<WaterRoomButtonProps> = (props) => {
   return (
     <button
       title="Water room"
-      class="mx-auto mt-2 w-1/3 rounded bg-cyan-600 p-2 text-center text-white data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600"
+      class="mx-auto mt-2 w-full rounded bg-cyan-600 p-2 text-center text-white data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600 lg:w-1/3"
       data-isLoading={waterRoomMutation.isPending}
       data-isDire={props.isDire}
       onClick={(e) => {

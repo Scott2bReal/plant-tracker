@@ -54,7 +54,7 @@ function AllRooms() {
     <>
       <ErrorBoundary fallback={<p>Error loading rooms :(</p>}>
         <Show when={!!queryResult.data} fallback={<p>Loading...</p>}>
-          <ul class="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-3">
+          <ul class="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-3">
             <For each={queryResult.data}>{(room) => <Room {...room} />}</For>
           </ul>
         </Show>
