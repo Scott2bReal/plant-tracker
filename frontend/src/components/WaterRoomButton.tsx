@@ -6,11 +6,9 @@ import { Component } from 'solid-js'
 import { apiClient } from '../lib/api-client'
 
 interface WaterRoomButtonProps {
-  isDire?: boolean
+  isDire: boolean
   roomId: number
 }
-
-const now = dayjs().toISOString()
 
 const waterRoom = async (roomId: number) => {
   const response = await apiClient<WaterRoomRouteType>().rooms[
@@ -18,7 +16,7 @@ const waterRoom = async (roomId: number) => {
   ].water.$post({
     param: { id: String(roomId) },
     json: {
-      lastWatered: now,
+      lastWatered: dayjs().toISOString(),
     },
   })
 
