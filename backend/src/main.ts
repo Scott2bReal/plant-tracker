@@ -1,6 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
 import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/d1'
+import { AnyD1Database, drizzle } from 'drizzle-orm/d1'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { z } from 'zod'
@@ -8,7 +8,7 @@ import { rooms } from './schema'
 
 export interface Bindings {
   FRONTEND_BASE_URL: string | undefined
-  DB: D1Database
+  DB: AnyD1Database
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
