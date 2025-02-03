@@ -3,17 +3,15 @@ import { createQuery } from '@tanstack/solid-query'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { hc } from 'hono/client'
 import { For, Show } from 'solid-js'
+import { apiClient } from '../lib/api-client'
 import WaterRoomButton from './WaterRoomButton'
 
 dayjs.extend(relativeTime)
 dayjs.extend(advancedFormat)
 
 const getRooms = async () => {
-  const response = await hc<AllRoomsRouteType>(
-    import.meta.env.VITE_BACKEND_BASE_URL
-  ).rooms.$get()
+  const response = await apiClient<AllRoomsRouteType>().rooms.$get()
 
   if (!response.ok) {
     throw new Error('Failed to fetch rooms')
