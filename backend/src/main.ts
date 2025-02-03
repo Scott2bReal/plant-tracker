@@ -78,21 +78,27 @@ const createRoomRoute = app.post(
 export type CreateRoomRouteType = typeof createRoomRoute
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const waterRoomRoute = app.put(
+const waterRoomRoute = app.post(
   `/rooms/:id/water`,
   zValidator(
     'param',
     z.object({
       id: z.string(),
+    })
+  ),
+  zValidator(
+    'json',
+    z.object({
       lastWatered: z.string(),
     })
   ),
   async (c) => {
-    const { id, lastWatered } = c.req.valid('param')
+    const { id } = c.req.valid('param')
+    const { lastWatered } = c.req.valid('json')
     const db = drizzle(c.env.DB)
     const result = await db
       .update(rooms)
-      .set({ lastWatered })
+      .set({ lastWatered: lastWatered })
       .where(eq(rooms.id, parseInt(id)))
       .execute()
     return c.json(result)

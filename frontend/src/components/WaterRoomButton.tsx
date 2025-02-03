@@ -8,16 +8,17 @@ interface WaterRoomButtonProps {
   roomId: number
 }
 
+const now = dayjs().toISOString()
+
 const waterRoom = async (roomId: number) => {
   const response = await hc<WaterRoomRouteType>(
     import.meta.env.VITE_BACKEND_BASE_URL
-  ).rooms[':id'].water.$put({
-    param: {
-      id: String(roomId),
-      lastWatered: dayjs().toISOString(),
+  ).rooms[':id'].water.$post({
+    param: { id: String(roomId) },
+    json: {
+      lastWatered: now,
     },
   })
-
   if (!response.ok) {
     throw new Error('Failed to water room')
   }
