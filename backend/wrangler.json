@@ -3,7 +3,9 @@
   "name": "pt-be",
   "main": "src/main.ts",
   "compatibility_date": "2025-01-30",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "d1_databases": [
     {
       "binding": "DB",
@@ -13,6 +15,6 @@
     }
   ],
   "vars": {
-    "FRONTEND_BASE_URL": "https://plant-tracker.pages.dev"
+    "FRONTEND_BASE_URL": "https://plant-tracker.s2br-app.com"
   }
 }
