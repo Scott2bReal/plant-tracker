@@ -31,32 +31,6 @@ const allRoomsRoute = app.get('/rooms', async (c) => {
 export type AllRoomsRouteType = typeof allRoomsRoute
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const roomRoute = app.get(
-  '/rooms/:id',
-  zValidator(
-    'param',
-    z.object({
-      id: z.string(),
-    })
-  ),
-  async (c) => {
-    const { id } = c.req.valid('param')
-    const db = drizzle(c.env.DB)
-    const result = await db
-      .selectDistinct()
-      .from(rooms)
-      .where(eq(rooms.id, parseInt(id)))
-      .limit(1)
-      .execute()
-    if (!result[0]) {
-      return c.json('Not found', 404)
-    }
-    return c.json(result[0])
-  }
-)
-export type RoomRouteType = typeof roomRoute
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const createRoomRoute = app.post(
   `/rooms/create`,
   zValidator(
