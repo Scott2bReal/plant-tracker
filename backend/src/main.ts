@@ -52,7 +52,7 @@ const createRoomRoute = app.post(
 export type CreateRoomRouteType = typeof createRoomRoute
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const waterRoomRoute = app.post(
+const waterRoomRoute = app.put(
   `/rooms/:id/water`,
   zValidator(
     'param',

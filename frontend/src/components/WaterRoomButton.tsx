@@ -13,7 +13,7 @@ interface WaterRoomButtonProps {
 const waterRoom = async (roomId: number) => {
   const response = await apiClient<WaterRoomRouteType>().rooms[
     ':id'
-  ].water.$post({
+  ].water.$put({
     param: { id: String(roomId) },
     json: {
       lastWatered: dayjs().toISOString(),
