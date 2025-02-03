@@ -18,9 +18,11 @@ interface Room {
 
 const Room: Component<Room> = (room) => (
   <li>
-    <h4>{room.name}</h4>
-    <p>{dayjs(room.lastWatered).format('ddd, MMM Do')}</p>
-    <p>{dayjs(dayjs(room.lastWatered)).fromNow()}</p>
+    <h4 class="text-lg font-semibold">{room.name}</h4>
+    <p class="text-xl lg:text-2xl">
+      {dayjs(room.lastWatered).format('ddd, MMM Do')}
+    </p>
+    <p class="italic">{dayjs(dayjs(room.lastWatered)).fromNow()}</p>
     <WaterRoomButton roomId={room.id} />
   </li>
 )
@@ -46,7 +48,7 @@ function AllRooms() {
     <>
       <ErrorBoundary fallback={<p>Error loading rooms :(</p>}>
         <Show when={!!queryResult.data} fallback={<p>Loading...</p>}>
-          <ul class="grid grid-cols-2 gap-4 lg:grid-cols-3">
+          <ul class="grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-3">
             <For each={queryResult.data}>{(room) => <Room {...room} />}</For>
           </ul>
         </Show>

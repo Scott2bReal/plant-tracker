@@ -43,7 +43,7 @@ const WaterRoomButton: Component<WaterRoomButtonProps> = (props) => {
   return (
     <button
       title="Water room"
-      class="rounded bg-blue-600 p-2 text-white"
+      class="mx-auto mt-2 w-1/3 rounded bg-cyan-600 p-2 text-center text-white"
       data-isLoading={waterRoomMutation.isPending}
       onClick={(e) => {
         e.preventDefault()
@@ -53,7 +53,7 @@ const WaterRoomButton: Component<WaterRoomButtonProps> = (props) => {
       <span class="sr-only">Water room</span>
       <IoWaterOutline
         data-isLoading={waterRoomMutation.isPending}
-        class="size-6 duration-300 ease-in-out data-[isLoading=true]:translate-y-1"
+        class="mx-auto size-6 duration-300 ease-out data-[isLoading=true]:translate-y-1"
       />
     </button>
   )
