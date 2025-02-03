@@ -5,7 +5,15 @@ import App from './App.tsx'
 import './index.css'
 
 const root = document.getElementById('root')
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 3,
+      throwOnError: true,
+    },
+  },
+})
 
 render(
   () => (
