@@ -22,11 +22,13 @@ app.get('/', async (c) => {
   return c.json('another thing')
 })
 
-app.get('/rooms', async (c) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const allRoomsRoute = app.get('/rooms', async (c) => {
   const db = drizzle(c.env.DB)
   const result = await db.select().from(rooms).execute()
   return c.json(result)
 })
+export type AllRoomsRouteType = typeof allRoomsRoute
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const roomRoute = app.get(

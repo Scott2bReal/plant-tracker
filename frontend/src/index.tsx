@@ -5,11 +5,11 @@ import App from './App.tsx'
 import './index.css'
 
 const root = document.getElementById('root')
-const client = new QueryClient()
+export const queryClient = new QueryClient()
 
 render(
   () => (
-    <QueryClientProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
   ),

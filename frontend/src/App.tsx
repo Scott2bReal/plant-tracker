@@ -1,10 +1,13 @@
 import './App.css'
-import Room from './components/Room'
+import CreateRoomForm from './components/CreateRoomForm'
+import Rooms from './components/Rooms'
 
 function App() {
   return (
     <>
-      <Room id={1} />
+      <h1>Create a room</h1>
+      <CreateRoomForm />
+      <Rooms />
     </>
   )
 }
