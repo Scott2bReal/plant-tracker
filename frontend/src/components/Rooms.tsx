@@ -17,7 +17,7 @@ interface Room {
 }
 
 const Room: Component<Room> = (room) => (
-  <li>
+  <li class="text-cyan-900">
     <h4 class="text-lg font-semibold">{room.name}</h4>
     <p class="text-xl lg:text-2xl">
       {dayjs(room.lastWatered).format('ddd, MMM Do')}

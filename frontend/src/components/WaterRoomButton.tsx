@@ -53,7 +53,7 @@ const WaterRoomButton: Component<WaterRoomButtonProps> = (props) => {
       <span class="sr-only">Water room</span>
       <IoWaterOutline
         data-isLoading={waterRoomMutation.isPending}
-        class="mx-auto size-6 duration-300 ease-out data-[isLoading=true]:translate-y-1"
+        class="mx-auto size-6 text-cyan-100 duration-300 ease-out data-[isLoading=true]:translate-y-1"
       />
     </button>
   )
