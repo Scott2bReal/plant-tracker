@@ -28,6 +28,7 @@ app.get('/rooms', async (c) => {
   return c.json(result)
 })
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const roomRoute = app.get(
   '/rooms/:id',
   zValidator(
@@ -53,6 +54,7 @@ const roomRoute = app.get(
 )
 export type RoomRouteType = typeof roomRoute
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const createRoomRoute = app.post(
   `/rooms/create`,
   zValidator(
