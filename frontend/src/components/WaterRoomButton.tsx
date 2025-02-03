@@ -6,6 +6,7 @@ import { Component } from 'solid-js'
 import { apiClient } from '../lib/api-client'
 
 interface WaterRoomButtonProps {
+  isDire?: boolean
   roomId: number
 }
 
@@ -43,8 +44,9 @@ const WaterRoomButton: Component<WaterRoomButtonProps> = (props) => {
   return (
     <button
       title="Water room"
-      class="mx-auto mt-2 w-1/3 rounded bg-cyan-600 p-2 text-center text-white"
+      class="mx-auto mt-2 w-1/3 rounded bg-cyan-600 p-2 text-center text-white data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600"
       data-isLoading={waterRoomMutation.isPending}
+      data-isDire={props.isDire}
       onClick={(e) => {
         e.preventDefault()
         waterRoomMutation.mutate()

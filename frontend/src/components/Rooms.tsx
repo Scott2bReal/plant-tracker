@@ -3,7 +3,7 @@ import { createQuery } from '@tanstack/solid-query'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { Component, ErrorBoundary, For, Show } from 'solid-js'
+import { Component, createMemo, ErrorBoundary, For, Show } from 'solid-js'
 import { apiClient } from '../lib/api-client'
 import WaterRoomButton from './WaterRoomButton'
 
@@ -16,16 +16,22 @@ interface Room {
   lastWatered: string
 }
 
-const Room: Component<Room> = (room) => (
-  <li class="text-cyan-900">
-    <h4 class="text-lg font-semibold">{room.name}</h4>
-    <p class="text-xl lg:text-2xl">
-      {dayjs(room.lastWatered).format('ddd, MMM Do')}
-    </p>
-    <p class="italic">{dayjs(dayjs(room.lastWatered)).fromNow()}</p>
-    <WaterRoomButton roomId={room.id} />
-  </li>
-)
+const Room: Component<Room> = (room) => {
+  const isDire = createMemo(() =>
+    dayjs(room.lastWatered).isBefore(dayjs().subtract(1, 'week'))
+  )
+
+  return (
+    <li class="text-cyan-900">
+      <h4 class="text-lg font-semibold">{room.name}</h4>
+      <p class="text-xl lg:text-2xl">
+        {dayjs(room.lastWatered).format('ddd, MMM Do')}
+      </p>
+      <p class="italic">{dayjs(dayjs(room.lastWatered)).fromNow()}</p>
+      <WaterRoomButton isDire={isDire()} roomId={room.id} />
+    </li>
+  )
+}
 
 const getRooms = async () => {
   const response = await apiClient<AllRoomsRouteType>().rooms.$get()
