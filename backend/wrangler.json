@@ -11,5 +11,17 @@
       "database_id": "f8894ba5-12e5-4fae-b8c4-59c70862a697",
       "migrations_dir": "./migrations"
     }
-  ]
+  ],
+  "env": {
+    "production": {
+      "vars": {
+        "FRONTEND_BASE_URL": "https://plant-tracker.pages.dev"
+      }
+    },
+    "development": {
+      "vars": {
+        "FRONTEND_BASE_URL": "http://localhost:5173"
+      }
+    }
+  }
 }
