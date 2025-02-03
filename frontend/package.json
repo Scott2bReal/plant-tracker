@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "types": "tsc -b --noEmit --pretty",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@tanstack/solid-query": "^5.65.0",
