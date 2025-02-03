@@ -1,7 +1,7 @@
+import { RoomRouteType } from '#backend/src/main'
 import { createQuery } from '@tanstack/solid-query'
 import { hc } from 'hono/client'
 import { Component, ErrorBoundary, Suspense } from 'solid-js'
-import { RoomRouteType } from '../../../backend/src/main'
 
 const Room: Component<{ id: number }> = (props) => {
   const queryResult = createQuery(() => ({
@@ -33,11 +33,7 @@ const Room: Component<{ id: number }> = (props) => {
   return (
     <>
       <h3>Room {props.id}</h3>
-      <ErrorBoundary
-        fallback={
-          <div>Failed to fetch room: {queryResult?.error?.message}</div>
-        }
-      >
+      <ErrorBoundary fallback={<div>{queryResult?.error?.message}</div>}>
         <Suspense fallback={<p>Loading...</p>}>
           <ul>
             <li>Room id: {queryResult.data?.id}</li>
