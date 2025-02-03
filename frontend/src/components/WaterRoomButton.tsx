@@ -24,15 +24,13 @@ const waterRoom = async (roomId: number) => {
     throw new Error('Failed to water room')
   }
 
-  const json = await response.json()
-
-  return json
+  return await response.json()
 }
 
 const WaterRoomButton: Component<WaterRoomButtonProps> = (props) => {
   const queryClient = useQueryClient()
-  const waterRoomMutation = createMutation<typeof waterRoom>(() => ({
-    mutationFn: async () => waterRoom(props.roomId),
+  const waterRoomMutation = createMutation(() => ({
+    mutationFn: async () => await waterRoom(props.roomId),
     mutationKey: ['waterRoom', props.roomId],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allRooms'] })
