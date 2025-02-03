@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --remote",
     "deploy": "wrangler deploy --minify",
     "db-migrate": "wrangler d1 migrations apply plant_tracker --remote",
     "types": "tsc --noEmit --pretty",

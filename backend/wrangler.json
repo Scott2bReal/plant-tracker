@@ -12,16 +12,7 @@
       "migrations_dir": "./migrations"
     }
   ],
-  "env": {
-    "production": {
-      "vars": {
-        "FRONTEND_BASE_URL": "https://plant-tracker.pages.dev"
-      }
-    },
-    "development": {
-      "vars": {
-        "FRONTEND_BASE_URL": "http://localhost:5173"
-      }
-    }
+  "vars": {
+    "FRONTEND_BASE_URL": "https://plant-tracker.pages.dev"
   }
 }
