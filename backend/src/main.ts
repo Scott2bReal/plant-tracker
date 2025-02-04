@@ -13,13 +13,10 @@ export interface Bindings {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
+// Setup CORS middleware on every route
 app.use('*', async (c, next) => {
   const origin = c.env.FRONTEND_BASE_URL ?? ''
   return cors({ origin })(c, next)
-})
-
-app.get('/', async (c) => {
-  return c.json('another thing')
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
