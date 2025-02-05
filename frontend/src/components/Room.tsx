@@ -38,7 +38,6 @@ const Room: Component<Room> = (room) => {
     dayjs(room.lastWatered).isBefore(dayjs().subtract(1, 'week'))
   )
   const [isClicked, setIsClicked] = createSignal(false)
-  const toggleClicked = () => setIsClicked(!isClicked())
 
   const queryClient = useQueryClient()
   const waterRoomMutation = createMutation(() => ({
@@ -49,9 +48,6 @@ const Room: Component<Room> = (room) => {
     },
   }))
 
-  const [isLoading, setIsLoading] = createSignal(false)
-  const toggleIsLoading = () => setIsLoading(!isLoading())
-
   return (
     <li class="mx-auto grid w-full grid-cols-3 items-center text-cyan-900">
       <div class="col-span-2 text-left">
@@ -59,14 +55,14 @@ const Room: Component<Room> = (room) => {
           {room.name}
         </h4>
         <p
-          data-isLoading={isLoading()}
+          data-isLoading={waterRoomMutation.isPending}
           class="italic transition duration-100 ease-in data-[isLoading=true]:animate-pulse data-[isLoading=true]:blur-sm lg:text-xl"
         >
           {dayjs(dayjs(room.lastWatered)).fromNow()}
         </p>
         <p
           class="italic transition duration-100 ease-in data-[isLoading=true]:animate-pulse data-[isLoading=true]:blur-sm lg:text-xl"
-          data-isLoading={isLoading()}
+          data-isLoading={waterRoomMutation.isPending}
         >
           on {dayjs(room.lastWatered).format('ddd, MMM Do')}
         </p>
@@ -74,27 +70,23 @@ const Room: Component<Room> = (room) => {
 
       <button
         title="Water room"
-        class="mx-auto h-1/2 w-full rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out hover:scale-105 disabled:bg-cyan-600/50 data-[isClicked=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600"
-        disabled={isLoading()}
+        class="mx-auto h-1/2 w-full rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out hover:scale-105 disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[isClicked=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600"
+        disabled={waterRoomMutation.isPending}
         data-isLoading={waterRoomMutation.isPending}
         data-isClicked={isClicked()}
         data-isDire={isDire()}
-        on:pointerdown={toggleClicked}
-        on:pointerup={toggleClicked}
+        on:pointerdown={() =>
+          !waterRoomMutation.isPending && setIsClicked(true)
+        }
+        on:pointerup={() => !waterRoomMutation.isPending && setIsClicked(false)}
         on:focusout={() => setIsClicked(false)}
         on:click={() => {
-          toggleIsLoading()
-          setTimeout(() => {
-            toggleIsLoading()
-          }, 1000)
-          // waterRoomMutation.mutate()
+          waterRoomMutation.mutate()
+          if (isClicked()) setIsClicked(false)
         }}
       >
         <span class="sr-only">Water room</span>
-        <IoWaterOutline
-          data-isLoading={isLoading()}
-          class="mx-auto size-6 text-cyan-100 duration-300 ease-in-out"
-        />
+        <IoWaterOutline class="mx-auto size-6 text-cyan-100 duration-300 ease-in-out" />
       </button>
     </li>
   )
