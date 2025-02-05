@@ -13,6 +13,6 @@
     }
   ],
   "vars": {
-    "FRONTEND_BASE_URL": "https://plant-tracker.s2br-app.com"
+    "ALLOW_DOMAINS": "https://plant-tracker.s2br-app.com,https://plant-tracker.scott-app.com"
   }
 }

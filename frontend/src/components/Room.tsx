@@ -52,22 +52,25 @@ const Room: Component<Room> = (room) => {
   }))
 
   return (
-    <li class="mx-auto grid w-full grid-cols-3 items-center text-cyan-900">
+    <div class="relative mx-auto grid w-full grid-cols-3 items-center pb-2 text-cyan-900">
       <div class="col-span-2 text-left">
-        <h4 class="whitespace-nowrap text-xl font-semibold lg:text-3xl">
+        <h2 class="whitespace-nowrap text-xl font-semibold lg:text-3xl">
           {room.name}
-        </h4>
+        </h2>
         <p
           data-isLoading={waterRoomMutation.isPending}
-          class="italic transition duration-100 ease-in data-[isLoading=true]:animate-pulse data-[isLoading=true]:blur-sm lg:text-xl"
+          class="text-lg italic transition duration-100 ease-in data-[isLoading=true]:animate-pulse data-[isLoading=true]:blur-sm lg:text-2xl"
         >
           {dayjs(dayjs(room.lastWatered)).fromNow()}
         </p>
         <p
-          class="italic transition duration-100 ease-in data-[isLoading=true]:animate-pulse data-[isLoading=true]:blur-sm lg:text-xl"
+          class="ml-2 italic transition duration-100 ease-in data-[isLoading=true]:animate-pulse data-[isLoading=true]:blur-sm lg:text-xl"
           data-isLoading={waterRoomMutation.isPending}
         >
-          on {dayjs(room.lastWatered).format('ddd, MMM Do')}
+          on{' '}
+          <span class="font-semibold">
+            {dayjs(room.lastWatered).format('ddd, MMM Do')}
+          </span>
         </p>
       </div>
 
@@ -88,7 +91,8 @@ const Room: Component<Room> = (room) => {
         <span class="sr-only">Water room</span>
         <IoWaterOutline class="mx-auto size-6 text-cyan-100 duration-300 ease-in-out" />
       </button>
-    </li>
+      <div class="absolute bottom-0 left-4 mx-auto h-px w-[90%] bg-teal-cycle" />
+    </div>
   )
 }
 

@@ -7,7 +7,7 @@ import { z } from 'zod'
 import { rooms } from './schema'
 
 export interface Bindings {
-  FRONTEND_BASE_URL: string | undefined
+  ALLOW_DOMAINS: string | undefined
   DB: AnyD1Database
 }
 
@@ -15,8 +15,12 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 // Setup CORS middleware on every route
 app.use('*', async (c, next) => {
-  const origin = c.env.FRONTEND_BASE_URL ?? ''
-  return cors({ origin })(c, next)
+  console.log('CORS middleware allowed domains', c.env.ALLOW_DOMAINS)
+  const allowedDomains =
+    c.env.ALLOW_DOMAINS?.split(',').map((domain) => domain.trim()) ?? []
+  return cors({
+    origin: allowedDomains,
+  })(c, next)
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
