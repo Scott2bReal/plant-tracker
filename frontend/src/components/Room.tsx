@@ -37,7 +37,10 @@ const Room: Component<Room> = (room) => {
   const isDire = createMemo(() =>
     dayjs(room.lastWatered).isBefore(dayjs().subtract(1, 'week'))
   )
-  const [isClicked, setIsClicked] = createSignal(false)
+
+  const [isPressed, setIsPressed] = createSignal(false)
+  const press = () => setIsPressed(true)
+  const unpress = () => setIsPressed(false)
 
   const queryClient = useQueryClient()
   const waterRoomMutation = createMutation(() => ({
@@ -70,19 +73,16 @@ const Room: Component<Room> = (room) => {
 
       <button
         title="Water room"
-        class="mx-auto h-1/2 w-full rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[isClicked=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600 lg:hover:scale-105"
+        class="mx-auto h-1/2 w-full scale-100 rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[pressed=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600 lg:data-[pressed=false]:hover:scale-105 lg:data-[pressed=false]:disabled:hover:scale-100"
         disabled={waterRoomMutation.isPending}
         data-isLoading={waterRoomMutation.isPending}
-        data-isClicked={isClicked()}
         data-isDire={isDire()}
-        on:pointerdown={() =>
-          !waterRoomMutation.isPending && setIsClicked(true)
-        }
-        on:pointerup={() => setIsClicked(false)}
-        on:focusout={() => setIsClicked(false)}
+        data-pressed={isPressed()}
+        on:pointerdown={press}
+        on:pointerup={unpress}
+        on:pointerleave={unpress}
         on:click={() => {
           waterRoomMutation.mutate()
-          if (isClicked()) setIsClicked(false)
         }}
       >
         <span class="sr-only">Water room</span>
