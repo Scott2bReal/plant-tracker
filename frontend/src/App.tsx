@@ -1,6 +1,6 @@
 import './App.css'
+import Rooms from './components/AllRooms'
 import Hero from './components/Hero'
-import Rooms from './components/Rooms'
 
 function App() {
   return (
