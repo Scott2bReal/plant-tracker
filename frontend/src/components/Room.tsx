@@ -70,7 +70,7 @@ const Room: Component<Room> = (room) => {
 
       <button
         title="Water room"
-        class="mx-auto h-1/2 w-full rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out hover:scale-105 disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[isClicked=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600"
+        class="mx-auto h-1/2 w-full rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[isClicked=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600 lg:hover:scale-105"
         disabled={waterRoomMutation.isPending}
         data-isLoading={waterRoomMutation.isPending}
         data-isClicked={isClicked()}
@@ -78,7 +78,7 @@ const Room: Component<Room> = (room) => {
         on:pointerdown={() =>
           !waterRoomMutation.isPending && setIsClicked(true)
         }
-        on:pointerup={() => !waterRoomMutation.isPending && setIsClicked(false)}
+        on:pointerup={() => setIsClicked(false)}
         on:focusout={() => setIsClicked(false)}
         on:click={() => {
           waterRoomMutation.mutate()
