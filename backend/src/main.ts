@@ -49,6 +49,7 @@ const allRoomsRoute = app.get('/rooms', async (c) => {
 })
 export type AllRoomsRouteType = typeof allRoomsRoute
 
+// // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // const createRoomRoute = app.post(
 //   `/rooms/create`,
 //   zValidator(
