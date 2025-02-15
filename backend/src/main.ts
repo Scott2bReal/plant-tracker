@@ -31,26 +31,26 @@ const allRoomsRoute = app.get('/rooms', async (c) => {
 })
 export type AllRoomsRouteType = typeof allRoomsRoute
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const createRoomRoute = app.post(
-  `/rooms/create`,
-  zValidator(
-    'json',
-    z.object({
-      name: z.string(),
-    })
-  ),
-  async (c) => {
-    const { name } = c.req.valid('json')
-    const db = drizzle(c.env.DB)
-    const result = await db
-      .insert(rooms)
-      .values({ name, lastWatered: new Date().toLocaleDateString() })
-      .execute()
-    return c.json(result)
-  }
-)
-export type CreateRoomRouteType = typeof createRoomRoute
+// // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// const createRoomRoute = app.post(
+//   `/rooms/create`,
+//   zValidator(
+//     'json',
+//     z.object({
+//       name: z.string(),
+//     })
+//   ),
+//   async (c) => {
+//     const { name } = c.req.valid('json')
+//     const db = drizzle(c.env.DB)
+//     const result = await db
+//       .insert(rooms)
+//       .values({ name, lastWatered: new Date().toLocaleDateString() })
+//       .execute()
+//     return c.json(result)
+//   }
+// )
+// export type CreateRoomRouteType = typeof createRoomRoute
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const waterRoomRoute = app.put(
