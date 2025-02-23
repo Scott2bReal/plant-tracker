@@ -13,6 +13,11 @@
     }
   ],
   "vars": {
-    "ALLOW_DOMAINS": "https://plant-tracker.s2br-app.com,https://plant-tracker.scott-app.com"
+    "ALLOW_DOMAINS": "<ALLOW_DOMAINS>",
+    "ALLOWED_EMAILS": "<ALLOWED_EMAILS>",
+    "BETTER_AUTH_SECRET": "<BETTER_AUTH_SECRET>",
+    "BETTER_AUTH_TRUSTED_ORIGINS": "<BETTER_AUTH_TRUSTED_ORIGINS>",
+    "BETTER_AUTH_URL": "<BETTER_AUTH_URL>",
+    "RESEND_API_KEY": "<RESEND_API_KEY>"
   }
 }
