@@ -15,6 +15,34 @@
       "when": 1739561133618,
       "tag": "0001_last_jean_grey",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1740334666006,
+      "tag": "0002_chubby_mole_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1740335368330,
+      "tag": "0003_boring_human_torch",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1740336111208,
+      "tag": "0004_last_vulture",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1740336206485,
+      "tag": "0005_pretty_hedge_knight",
+      "breakpoints": true
     }
   ]
 }

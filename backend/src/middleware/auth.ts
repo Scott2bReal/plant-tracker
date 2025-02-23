@@ -6,10 +6,10 @@ export const authMiddleware = createMiddleware<{
   Bindings: Bindings
   Variables: Variables
 }>(async (c, next) => {
+  console.log('checking auth...')
+
   const auth = initAuth(c)
   const session = await auth.api.getSession({ headers: c.req.raw.headers })
-
-  // Stop the chain here if there is no session, redirect to login
   if (!session) {
     c.set('user', null)
     c.set('session', null)

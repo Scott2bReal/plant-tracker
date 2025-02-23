@@ -33,19 +33,17 @@ function AllRooms() {
   })
 
   return (
-    <>
-      <Show when={!!queryResult.data} fallback={<p>Loading...</p>}>
-        <ul class="mx-auto flex max-w-[500px] flex-col gap-y-4">
-          <For each={queryResult.data}>
-            {(room) => (
-              <li>
-                <Room {...room} />
-              </li>
-            )}
-          </For>
-        </ul>
-      </Show>
-    </>
+    <Show when={!!queryResult.data} fallback={<p>Loading...</p>}>
+      <ul class="mx-auto flex max-w-[500px] flex-col gap-y-4">
+        <For each={queryResult.data}>
+          {(room) => (
+            <li>
+              <Room {...room} />
+            </li>
+          )}
+        </For>
+      </ul>
+    </Show>
   )
 }
 

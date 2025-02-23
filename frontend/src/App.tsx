@@ -1,13 +1,12 @@
 import './App.css'
 import Rooms from './components/AllRooms'
-import Hero from './components/Hero'
+import Main from './components/Main'
 
 function App() {
   return (
-    <main class="px-4 text-center md:px-8">
-      <Hero />
+    <Main>
       <Rooms />
-    </main>
+    </Main>
   )
 }
 
