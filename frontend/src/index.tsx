@@ -1,8 +1,10 @@
 /* @refresh reload */
+import { Route, Router } from '@solidjs/router'
 import { QueryClient, QueryClientProvider } from '@tanstack/solid-query'
 import { render } from 'solid-js/web'
-import App from './App.tsx'
 import './index.css'
+import LandingPage from './pages/LandingPage'
+import Login from './pages/Login'
 
 const root = document.getElementById('root')
 const queryClient = new QueryClient({
@@ -18,7 +20,10 @@ const queryClient = new QueryClient({
 render(
   () => (
     <QueryClientProvider client={queryClient}>
-      <App />
+      <Router>
+        <Route path="/" component={LandingPage} />
+        <Route path="/login" component={Login} />
+      </Router>
     </QueryClientProvider>
   ),
   root!

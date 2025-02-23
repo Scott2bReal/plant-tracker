@@ -1,56 +1,57 @@
 import { zValidator } from '@hono/zod-validator'
+import { Session, User } from 'better-auth'
 import { eq } from 'drizzle-orm'
-import { AnyD1Database, drizzle } from 'drizzle-orm/d1'
+import { AnyD1Database, DrizzleD1Database } from 'drizzle-orm/d1'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { z } from 'zod'
+import { initAuth } from './auth/init'
+import { authMiddleware } from './middleware/auth'
+import { dbMiddleware } from './middleware/db'
 import { rooms } from './schema'
 
 export interface Bindings {
   ALLOW_DOMAINS: string | undefined
   DB: AnyD1Database
+  RESEND_API_KEY: string | undefined
+  ALLOWED_EMAILS: string | undefined
 }
 
-const app = new Hono<{ Bindings: Bindings }>()
+export interface Variables {
+  user: User | null
+  session: Session | null
+  db: DrizzleD1Database
+}
+
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 // Setup CORS middleware on every route
 app.use('*', async (c, next) => {
-  console.log('CORS middleware allowed domains', c.env.ALLOW_DOMAINS)
   const allowedDomains =
     c.env.ALLOW_DOMAINS?.split(',').map((domain) => domain.trim()) ?? []
   return cors({
     origin: allowedDomains,
+    credentials: true,
   })(c, next)
+})
+
+// Set up DB
+app.use('*', async (c, next) => await dbMiddleware(c, next))
+
+// Auth middleware
+app.use('*', async (c, next) => await authMiddleware(c, next))
+
+app.on(['POST', 'GET'], '/api/auth/**', (c) => {
+  const auth = initAuth(c)
+  return auth.handler(c.req.raw)
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const allRoomsRoute = app.get('/rooms', async (c) => {
-  const db = drizzle(c.env.DB)
-  const result = await db.select().from(rooms).execute()
+  const result = await c.var.db.select().from(rooms).execute()
   return c.json(result)
 })
 export type AllRoomsRouteType = typeof allRoomsRoute
-
-// // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// const createRoomRoute = app.post(
-//   `/rooms/create`,
-//   zValidator(
-//     'json',
-//     z.object({
-//       name: z.string(),
-//     })
-//   ),
-//   async (c) => {
-//     const { name } = c.req.valid('json')
-//     const db = drizzle(c.env.DB)
-//     const result = await db
-//       .insert(rooms)
-//       .values({ name, lastWatered: new Date().toLocaleDateString() })
-//       .execute()
-//     return c.json(result)
-//   }
-// )
-// export type CreateRoomRouteType = typeof createRoomRoute
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const waterRoomRoute = app.put(
@@ -70,8 +71,7 @@ const waterRoomRoute = app.put(
   async (c) => {
     const { id } = c.req.valid('param')
     const { lastWatered } = c.req.valid('json')
-    const db = drizzle(c.env.DB)
-    const result = await db
+    const result = await c.var.db
       .update(rooms)
       .set({ lastWatered: lastWatered })
       .where(eq(rooms.id, parseInt(id)))
