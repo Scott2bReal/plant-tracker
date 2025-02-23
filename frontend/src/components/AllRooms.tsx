@@ -18,6 +18,7 @@ function AllRooms() {
 
     return await response.json()
   }
+
   const queryResult = createQuery(() => ({
     queryKey: ['allRooms'],
     queryFn: getRooms,
