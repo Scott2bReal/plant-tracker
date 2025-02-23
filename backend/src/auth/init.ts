@@ -11,11 +11,138 @@ export const initAuth = (
 ) => {
   return betterAuth({
     trustedOrigins: c.env.ALLOW_DOMAINS?.split(',') ?? [],
+    databaseHooks: {
+      account: {
+        create: {
+          // @ts-expect-error Library types are incorrect
+          before: async (account) => {
+            const formattedAccount = {
+              ...account,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+            }
+            return {
+              data: formattedAccount,
+            }
+          },
+        },
+        update: {
+          // @ts-expect-error Library types are incorrect
+          before: async (account) => {
+            const formattedAccount = {
+              ...account,
+              updatedAt: new Date().toISOString(),
+            }
+            return {
+              data: formattedAccount,
+            }
+          },
+        },
+      },
+      user: {
+        create: {
+          // @ts-expect-error Library types are incorrect
+          before: async (user) => {
+            const formattedUser = {
+              ...user,
+              name: user.email === 'hoeckers@gmail.com' ? 'Scott' : 'Margot',
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+            }
+            return {
+              data: formattedUser,
+            }
+          },
+        },
+        update: {
+          // @ts-expect-error Library types are incorrect
+          before: async (user) => {
+            const formattedUser = {
+              ...user,
+              updatedAt: new Date().toISOString(),
+            }
+            return {
+              data: formattedUser,
+            }
+          },
+        },
+      },
+      session: {
+        create: {
+          // @ts-expect-error Library types are incorrect
+          before: async (session) => {
+            const formattedSession = {
+              ...session,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              // expire in 30 days
+              expiresAt: new Date(
+                Date.now() + 30 * 24 * 60 * 60 * 1000
+              ).toISOString(),
+            }
+            return {
+              data: formattedSession,
+            }
+          },
+        },
+        update: {
+          // @ts-expect-error Library types are incorrect
+          before: async (session) => {
+            const formattedSession = {
+              ...session,
+              updatedAt: new Date().toISOString(),
+              // expire in 30 days
+              expiresAt: new Date(
+                Date.now() + 30 * 24 * 60 * 60 * 1000
+              ).toISOString(),
+            }
+            return {
+              data: formattedSession,
+            }
+          },
+        },
+      },
+      verification: {
+        create: {
+          // @ts-expect-error Library types are incorrect
+          before: async (verification) => {
+            console.log('formatting verification')
+            const formattedVerification = {
+              ...verification,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              // expire in 5 minutes
+              expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
+            }
+            console.log(
+              'formatted verification',
+              JSON.stringify(formattedVerification, null, 2)
+            )
+            return {
+              data: formattedVerification,
+            }
+          },
+        },
+        update: {
+          // @ts-expect-error Library types are incorrect
+          before: async (verification) => {
+            const formattedVerification = {
+              ...verification,
+              updatedAt: new Date().toISOString(),
+              // expire in 5 minutes
+              expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
+            }
+            return {
+              data: formattedVerification,
+            }
+          },
+        },
+      },
+    },
     plugins: [
       magicLink({
         sendMagicLink: async ({ email, url }) => {
           const allowedEmails = c.env.ALLOWED_EMAILS?.split(',') ?? []
-          console.log(allowedEmails)
           if (!allowedEmails.includes(email)) {
             console.error('Invalid email')
             throw new Error('Invalid email')
