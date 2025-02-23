@@ -6,7 +6,6 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { z } from 'zod'
 import { initAuth } from './auth/init'
-import { authMiddleware } from './middleware/auth'
 import { dbMiddleware } from './middleware/db'
 import { rooms } from './schema'
 
@@ -29,6 +28,7 @@ const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 app.use('*', async (c, next) => {
   const allowedDomains =
     c.env.ALLOW_DOMAINS?.split(',').map((domain) => domain.trim()) ?? []
+  console.log('allowedDomains', allowedDomains)
   return cors({
     origin: allowedDomains,
     credentials: true,
@@ -39,7 +39,7 @@ app.use('*', async (c, next) => {
 app.use('*', async (c, next) => await dbMiddleware(c, next))
 
 // Auth middleware
-app.use('*', async (c, next) => await authMiddleware(c, next))
+// app.use('*', async (c, next) => await authMiddleware(c, next))
 
 app.on(['POST', 'GET'], '/api/auth/**', (c) => {
   const auth = initAuth(c)
