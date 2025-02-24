@@ -9,6 +9,7 @@ import { dbMiddleware } from './middleware/db'
 import { rooms } from './schema'
 
 export interface Bindings {
+  ALLOW_DOMAINS: string | undefined
   DB: AnyD1Database
   RESEND_API_KEY: string | undefined
   ALLOWED_EMAILS: string | undefined
