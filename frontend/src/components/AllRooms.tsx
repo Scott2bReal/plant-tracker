@@ -7,7 +7,7 @@ import Room from './Room'
 
 function AllRooms() {
   const getRooms = async () => {
-    const response = await apiClient<AllRoomsRouteType>().rooms.$get()
+    const response = await apiClient<AllRoomsRouteType>().api.rooms.$get()
 
     if (!response.ok) {
       if (response.status === 401) {

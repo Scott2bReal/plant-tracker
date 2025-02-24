@@ -17,7 +17,7 @@ interface Room {
 }
 
 const waterRoom = async (roomId: number) => {
-  const response = await apiClient<WaterRoomRouteType>().rooms[
+  const response = await apiClient<WaterRoomRouteType>().api.rooms[
     ':id'
   ].water.$put({
     param: { id: String(roomId) },
