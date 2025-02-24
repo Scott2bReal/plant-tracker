@@ -3,16 +3,8 @@ import { Component, createSignal, Match, Switch } from 'solid-js'
 import Main from '../components/Main'
 import { authClient } from '../lib/auth-client'
 
-const callbackURL = import.meta.env.DEV
-  ? 'http://localhost:5173'
-  : 'https://plant-tracker.scott-app.com'
-
 const sendMagicLink = async (email: string) => {
-  const response = await authClient.signIn.magicLink({
-    email,
-    callbackURL,
-  })
-  return response
+  return await authClient.signIn.magicLink({ email })
 }
 
 const Login: Component = () => {
