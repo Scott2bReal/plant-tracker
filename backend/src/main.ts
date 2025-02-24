@@ -22,7 +22,9 @@ export interface Variables {
   db: DrizzleD1Database
 }
 
-const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>().basePath(
+  '/api'
+)
 
 // Setup CORS middleware on every route
 app.use('*', async (c, next) => {

@@ -10,4 +10,12 @@ export default defineConfig({
       '#backend': path.resolve(__dirname, '../backend/src'), // If frontend needs to import from backend
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
+    },
+  },
 })
