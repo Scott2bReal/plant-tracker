@@ -3,14 +3,12 @@ import { Session, User } from 'better-auth'
 import { eq } from 'drizzle-orm'
 import { AnyD1Database, DrizzleD1Database } from 'drizzle-orm/d1'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { z } from 'zod'
 import { initAuth } from './auth/init'
 import { dbMiddleware } from './middleware/db'
 import { rooms } from './schema'
 
 export interface Bindings {
-  ALLOW_DOMAINS: string | undefined
   DB: AnyD1Database
   RESEND_API_KEY: string | undefined
   ALLOWED_EMAILS: string | undefined
@@ -25,17 +23,6 @@ export interface Variables {
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>().basePath(
   '/api'
 )
-
-// Setup CORS middleware on every route
-app.use('*', async (c, next) => {
-  const allowedDomains =
-    c.env.ALLOW_DOMAINS?.split(',').map((domain) => domain.trim()) ?? []
-  console.log('allowedDomains', allowedDomains)
-  return cors({
-    origin: allowedDomains,
-    credentials: true,
-  })(c, next)
-})
 
 // Set up DB
 app.use('*', async (c, next) => await dbMiddleware(c, next))
