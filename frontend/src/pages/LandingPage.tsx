@@ -1,5 +1,4 @@
 import { Component } from 'solid-js'
-import '../App.css'
 import AllRooms from '../components/AllRooms'
 import Main from '../components/Main'
 

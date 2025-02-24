@@ -5,6 +5,7 @@ import { AnyD1Database, DrizzleD1Database } from 'drizzle-orm/d1'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { initAuth } from './auth/init'
+import { authMiddleware } from './middleware/auth'
 import { dbMiddleware } from './middleware/db'
 import { rooms } from './schema'
 
@@ -29,9 +30,9 @@ const app = new Hono<{ Bindings: Bindings; Variables: Variables }>().basePath(
 app.use('*', async (c, next) => await dbMiddleware(c, next))
 
 // Auth middleware
-// app.use('*', async (c, next) => await authMiddleware(c, next))
+app.use('*', async (c, next) => await authMiddleware(c, next))
 
-app.on(['POST', 'GET'], '/api/auth/**', (c) => {
+app.on(['POST', 'GET'], '/auth/**', (c) => {
   const auth = initAuth(c)
   return auth.handler(c.req.raw)
 })

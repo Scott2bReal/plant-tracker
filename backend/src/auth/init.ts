@@ -106,7 +106,6 @@ export const initAuth = (
         create: {
           // @ts-expect-error Library types are incorrect
           before: async (verification) => {
-            console.log('formatting verification')
             const formattedVerification = {
               ...verification,
               createdAt: new Date().toISOString(),
@@ -114,10 +113,6 @@ export const initAuth = (
               // expire in 5 minutes
               expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
             }
-            console.log(
-              'formatted verification',
-              JSON.stringify(formattedVerification, null, 2)
-            )
             return {
               data: formattedVerification,
             }
