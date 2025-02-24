@@ -3,7 +3,9 @@
   "name": "pt-be",
   "main": "src/main.ts",
   "compatibility_date": "2025-01-30",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "d1_databases": [
     {
       "binding": "DB",
@@ -11,13 +13,5 @@
       "database_id": "f8894ba5-12e5-4fae-b8c4-59c70862a697",
       "migrations_dir": "./migrations"
     }
-  ],
-  "vars": {
-    "ALLOW_DOMAINS": "<ALLOW_DOMAINS>",
-    "ALLOWED_EMAILS": "<ALLOWED_EMAILS>",
-    "BETTER_AUTH_SECRET": "<BETTER_AUTH_SECRET>",
-    "BETTER_AUTH_TRUSTED_ORIGINS": "<BETTER_AUTH_TRUSTED_ORIGINS>",
-    "BETTER_AUTH_URL": "<BETTER_AUTH_URL>",
-    "RESEND_API_KEY": "<RESEND_API_KEY>"
-  }
+  ]
 }
