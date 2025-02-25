@@ -1,17 +1,19 @@
 import { type AllRoomsRouteType } from '#backend/src/main'
 import { useNavigate } from '@solidjs/router'
 import { createQuery } from '@tanstack/solid-query'
-import { createEffect, For, Show } from 'solid-js'
+import { For, Show } from 'solid-js'
 import { apiClient } from '../lib/api-client'
 import Room from './Room'
 
 function AllRooms() {
+  const navigate = useNavigate()
+
   const getRooms = async () => {
     const response = await apiClient<AllRoomsRouteType>().api.rooms.$get()
 
     if (!response.ok) {
       if (response.status === 401) {
-        throw new Error('Unauthorized')
+        navigate('/login')
       }
       throw new Error('Failed to fetch rooms')
     }
@@ -25,13 +27,6 @@ function AllRooms() {
     staleTime: 1000 * 60, // 1 minute
     throwOnError: true,
   }))
-
-  const navigate = useNavigate()
-  createEffect(() => {
-    if (queryResult.error?.message === 'Unauthorized') {
-      navigate('/login')
-    }
-  })
 
   return (
     <Show when={!!queryResult.data} fallback={<p>Loading...</p>}>

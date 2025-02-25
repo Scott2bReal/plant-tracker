@@ -26,28 +26,31 @@ const Login: Component = () => {
   return (
     <Switch
       fallback={
-        <form
-          class="flex flex-col items-center justify-center gap-4"
-          on:submit={(e) => {
-            e.preventDefault()
-            loginMutation.mutate()
-          }}
-        >
-          <label class="mx-auto flex w-fit flex-col gap-2 text-2xl font-bold text-cyan-900">
-            Email
-            <input
-              on:change={(e) => setEnteredEmail(e.target.value)}
-              type="email"
-              class="rounded-lg bg-cyan-50 p-2 text-base font-normal text-black"
-            />
-          </label>
-          <button
-            type="submit"
-            class="mx-auto mt-4 w-fit rounded-lg bg-cyan-700 p-2 text-white"
+        <>
+          <h1 class="text-4xl">Please log in</h1>
+          <form
+            class="mt-8 flex flex-col items-center justify-center gap-4"
+            on:submit={(e) => {
+              e.preventDefault()
+              loginMutation.mutate()
+            }}
           >
-            Send magic link
-          </button>
-        </form>
+            <label class="mx-auto flex w-fit flex-col gap-2 text-2xl font-bold text-cyan-900">
+              Email
+              <input
+                on:change={(e) => setEnteredEmail(e.target.value)}
+                type="email"
+                class="rounded-lg border border-cyan-900 bg-cyan-50 p-2 text-base font-normal text-black"
+              />
+            </label>
+            <button
+              type="submit"
+              class="mx-auto mt-4 w-fit rounded-lg bg-cyan-700 p-2 text-white"
+            >
+              Send magic link
+            </button>
+          </form>
+        </>
       }
     >
       <Match when={loginMutation.isPending}>
