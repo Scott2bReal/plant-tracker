@@ -9,6 +9,7 @@ import { authTables } from '../schema'
 export const initAuth = (
   c: Context<{ Bindings: Bindings; Variables: Variables }>
 ) => {
+  const scottEmail = c.env.ALLOWED_EMAILS?.split(',')[0]
   return betterAuth({
     trustedOrigins: c.env.ALLOW_DOMAINS?.split(',') ?? [],
     databaseHooks: {
@@ -45,7 +46,7 @@ export const initAuth = (
           before: async (user) => {
             const formattedUser = {
               ...user,
-              name: user.email === 'hoeckers@gmail.com' ? 'Scott' : 'Margot',
+              name: user.email === scottEmail ? 'Scott' : 'Margot',
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
             }
