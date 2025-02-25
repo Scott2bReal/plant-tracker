@@ -1,7 +1,12 @@
 import { Route, Router } from '@solidjs/router'
 import { QueryClient, QueryClientProvider } from '@tanstack/solid-query'
-import LandingPage from './pages/LandingPage'
-import Login from './pages/Login'
+import { lazy } from 'solid-js'
+
+import Layout from './components/Layout'
+
+const AllRooms = lazy(() => import('./components/AllRooms'))
+const Login = lazy(() => import('./components/Login'))
+const NotFound = lazy(() => import('./components/NotFound'))
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,9 +21,10 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <Route path="/" component={LandingPage} />
+      <Router root={Layout}>
+        <Route path="/" component={AllRooms} />
         <Route path="/login" component={Login} />
+        <Route path="*404" component={NotFound} />
       </Router>
     </QueryClientProvider>
   )
