@@ -16,27 +16,25 @@ interface Room {
   lastWatered: string
 }
 
-const waterRoom = async (roomId: number) => {
-  const response = await apiClient<WaterRoomRouteType>().api.rooms[
-    ':id'
-  ].water.$put({
-    param: { id: String(roomId) },
-    json: {
-      lastWatered: dayjs().toISOString(),
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to water room')
-  }
-
-  return await response.json()
-}
-
 const Room: Component<Room> = (room) => {
   const isDire = createMemo(() =>
     dayjs(room.lastWatered).isBefore(dayjs().subtract(1, 'week'))
   )
+
+  const waterRoom = async () => {
+    const response = await apiClient<WaterRoomRouteType>().api.rooms[
+      ':id'
+    ].water.$put({
+      param: { id: String(room.id) },
+      json: {
+        lastWatered: dayjs().toISOString(),
+      },
+    })
+    if (!response.ok) {
+      throw new Error('Failed to water room')
+    }
+    return await response.json()
+  }
 
   const [isPressed, setIsPressed] = createSignal(false)
   const press = () => setIsPressed(true)
@@ -44,7 +42,7 @@ const Room: Component<Room> = (room) => {
 
   const queryClient = useQueryClient()
   const waterRoomMutation = createMutation(() => ({
-    mutationFn: async () => await waterRoom(room.id),
+    mutationFn: waterRoom,
     mutationKey: ['waterRoom', room.id],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['allRooms'] })

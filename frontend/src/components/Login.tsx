@@ -2,15 +2,15 @@ import { createMutation } from '@tanstack/solid-query'
 import { Component, createSignal, Match, Switch } from 'solid-js'
 import { authClient } from '../lib/auth-client'
 
-const sendMagicLink = async (email: string) => {
-  return await authClient.signIn.magicLink({ email })
-}
-
 const Login: Component = () => {
   const [enteredEmail, setEnteredEmail] = createSignal('')
 
+  const sendMagicLink = async () => {
+    return await authClient.signIn.magicLink({ email: enteredEmail() })
+  }
+
   const loginMutation = createMutation(() => ({
-    mutationFn: async () => await sendMagicLink(enteredEmail()),
+    mutationFn: sendMagicLink,
     mutationKey: ['login', enteredEmail()],
     onMutate: () => {
       console.log('Sending magic link')
