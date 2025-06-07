@@ -34,7 +34,6 @@ app.use('*', async (c, next) => await authMiddleware(c, next))
 
 app.on(['POST', 'GET'], '/auth/**', (c) => {
   const auth = initAuth(c)
-  console.log('Auth handler for:', c.req.raw)
   return auth.handler(c.req.raw)
 })
 

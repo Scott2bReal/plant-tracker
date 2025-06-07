@@ -16,9 +16,6 @@ export const initAuth = (
       // 30 days in seconds
       expiresIn: 30 * 24 * 60 * 60,
       preserveSessionInDatabase: true,
-      cookieCache: {
-        enabled: true,
-      },
     },
     databaseHooks: {
       account: {
