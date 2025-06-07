@@ -12,6 +12,12 @@ export const initAuth = (
   const scottEmail = c.env.ALLOWED_EMAILS?.split(',')[0]
   return betterAuth({
     trustedOrigins: c.env.ALLOW_DOMAINS?.split(',') ?? [],
+    session: {
+      // Test 10 seconds expiration for testing
+      expiresIn: 10,
+      // 30 days in seconds
+      // expiresIn: 30 * 24 * 60 * 60,
+    },
     databaseHooks: {
       account: {
         create: {
