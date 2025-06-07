@@ -13,10 +13,12 @@ export const initAuth = (
   return betterAuth({
     trustedOrigins: c.env.ALLOW_DOMAINS?.split(',') ?? [],
     session: {
-      // Test 10 seconds expiration for testing
-      expiresIn: 10,
       // 30 days in seconds
-      // expiresIn: 30 * 24 * 60 * 60,
+      expiresIn: 30 * 24 * 60 * 60,
+      preserveSessionInDatabase: true,
+      cookieCache: {
+        enabled: true,
+      },
     },
     databaseHooks: {
       account: {
