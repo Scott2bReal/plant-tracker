@@ -11,6 +11,8 @@ export const authMiddleware = createMiddleware<{
   const auth = initAuth(c)
   const session = await auth.api.getSession({ headers: c.req.raw.headers })
 
+  console.log('Session: ', session)
+
   if (!session) {
     c.set('user', null)
     c.set('session', null)
