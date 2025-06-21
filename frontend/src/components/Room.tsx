@@ -1,10 +1,10 @@
-import { WaterRoomRouteType } from '#backend/src/main'
+import type { WaterRoomRouteType } from '#backend/src/main'
 import { createMutation, useQueryClient } from '@tanstack/solid-query'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { IoWaterOutline } from 'solid-icons/io'
-import { Component, createMemo, createSignal } from 'solid-js'
+import { type Component, createMemo, createSignal } from 'solid-js'
 import { apiClient } from '../lib/api-client'
 
 dayjs.extend(relativeTime)

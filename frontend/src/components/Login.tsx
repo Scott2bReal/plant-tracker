@@ -1,5 +1,5 @@
 import { createMutation } from '@tanstack/solid-query'
-import { Component, createSignal, Match, Switch } from 'solid-js'
+import { type Component, createSignal, Match, Switch } from 'solid-js'
 import { authClient } from '../lib/auth-client'
 
 const Login: Component = () => {
