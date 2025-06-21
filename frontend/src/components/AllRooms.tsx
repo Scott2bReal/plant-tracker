@@ -1,7 +1,7 @@
-import type { AllRoomsRouteType } from '#backend/src/main'
 import { useNavigate } from '@solidjs/router'
-import { createQuery } from '@tanstack/solid-query'
+import { useQuery } from '@tanstack/solid-query'
 import { For, Show } from 'solid-js'
+import type { AllRoomsRouteType } from '#backend/src/main'
 import { apiClient } from '../lib/api-client'
 import Room from './Room'
 
@@ -21,7 +21,7 @@ function AllRooms() {
     return await response.json()
   }
 
-  const queryResult = createQuery(() => ({
+  const queryResult = useQuery(() => ({
     queryKey: ['allRooms'],
     queryFn: getRooms,
     staleTime: 1000 * 60, // 1 minute

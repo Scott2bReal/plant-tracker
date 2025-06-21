@@ -1,4 +1,4 @@
-import { createMutation } from '@tanstack/solid-query'
+import { useMutation } from '@tanstack/solid-query'
 import { type Component, createSignal, Match, Switch } from 'solid-js'
 import { authClient } from '../lib/auth-client'
 
@@ -9,7 +9,7 @@ const Login: Component = () => {
     return await authClient.signIn.magicLink({ email: enteredEmail() })
   }
 
-  const loginMutation = createMutation(() => ({
+  const loginMutation = useMutation(() => ({
     mutationFn: sendMagicLink,
     mutationKey: ['login', enteredEmail()],
     onMutate: () => {
