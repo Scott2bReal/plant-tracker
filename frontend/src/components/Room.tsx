@@ -1,10 +1,10 @@
-import { WaterRoomRouteType } from '#backend/src/main'
-import { createMutation, useQueryClient } from '@tanstack/solid-query'
+import { useMutation, useQueryClient } from '@tanstack/solid-query'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { IoWaterOutline } from 'solid-icons/io'
-import { Component, createMemo, createSignal } from 'solid-js'
+import { type Component, createMemo, createSignal } from 'solid-js'
+import type { WaterRoomRouteType } from '#backend/src/main'
 import { apiClient } from '../lib/api-client'
 
 dayjs.extend(relativeTime)
@@ -41,7 +41,7 @@ const Room: Component<Room> = (room) => {
   const unpress = () => setIsPressed(false)
 
   const queryClient = useQueryClient()
-  const waterRoomMutation = createMutation(() => ({
+  const waterRoomMutation = useMutation(() => ({
     mutationFn: waterRoom,
     mutationKey: ['waterRoom', room.id],
     onSuccess: () => {
@@ -73,6 +73,7 @@ const Room: Component<Room> = (room) => {
       </div>
 
       <button
+        type="button"
         title="Water room"
         class="mx-auto h-1/2 w-full scale-100 rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[pressed=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600 lg:data-[pressed=false]:hover:scale-105 lg:data-[pressed=false]:disabled:hover:scale-100"
         disabled={waterRoomMutation.isPending}
