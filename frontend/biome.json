@@ -34,11 +34,11 @@
   },
   "linter": {
     "enabled": true,
+    "domains": {
+      "solid": "recommended"
+    },
     "rules": {
-      "recommended": true,
-      "nursery": {
-        "useForComponent": "warn"
-      }
+      "recommended": true
     }
   },
   "javascript": {
