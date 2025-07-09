@@ -6,6 +6,16 @@ import { Resend } from 'resend'
 import { Bindings, Variables } from '../main'
 import { authTables } from '../schema'
 
+const toISOString = (date: Date | string | undefined): string => {
+  if (date instanceof Date) {
+    return date.toISOString()
+  }
+  if (typeof date === 'string') {
+    return date
+  }
+  return new Date().toISOString()
+}
+
 export const initAuth = (
   c: Context<{ Bindings: Bindings; Variables: Variables }>
 ) => {
@@ -24,8 +34,8 @@ export const initAuth = (
           before: async (account) => {
             const formattedAccount = {
               ...account,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
+              createdAt: toISOString(account.createdAt),
+              updatedAt: toISOString(account.updatedAt),
             }
             return {
               data: formattedAccount,
@@ -37,7 +47,7 @@ export const initAuth = (
           before: async (account) => {
             const formattedAccount = {
               ...account,
-              updatedAt: new Date().toISOString(),
+              updatedAt: toISOString(account.updatedAt),
             }
             return {
               data: formattedAccount,
@@ -52,8 +62,8 @@ export const initAuth = (
             const formattedUser = {
               ...user,
               name: user.email === scottEmail ? 'Scott' : 'Margot',
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
+              createdAt: toISOString(user.createdAt),
+              updatedAt: toISOString(user.updatedAt),
             }
             return {
               data: formattedUser,
@@ -65,7 +75,7 @@ export const initAuth = (
           before: async (user) => {
             const formattedUser = {
               ...user,
-              updatedAt: new Date().toISOString(),
+              updatedAt: toISOString(user.updatedAt),
             }
             return {
               data: formattedUser,
@@ -79,8 +89,8 @@ export const initAuth = (
           before: async (session) => {
             const formattedSession = {
               ...session,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
+              createdAt: toISOString(session.createdAt),
+              updatedAt: toISOString(session.updatedAt),
               // expire in 30 days
               expiresAt: new Date(
                 Date.now() + 30 * 24 * 60 * 60 * 1000
@@ -96,7 +106,7 @@ export const initAuth = (
           before: async (session) => {
             const formattedSession = {
               ...session,
-              updatedAt: new Date().toISOString(),
+              updatedAt: toISOString(session.updatedAt),
               // expire in 30 days
               expiresAt: new Date(
                 Date.now() + 30 * 24 * 60 * 60 * 1000
@@ -114,8 +124,8 @@ export const initAuth = (
           before: async (verification) => {
             const formattedVerification = {
               ...verification,
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
+              createdAt: toISOString(verification.createdAt),
+              updatedAt: toISOString(verification.updatedAt),
               // expire in 5 minutes
               expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
             }
@@ -129,10 +139,10 @@ export const initAuth = (
           before: async (verification) => {
             const formattedVerification = {
               ...verification,
-              createdAt: verification.createdAt?.toISOString(),
-              updatedAt: new Date().toISOString(),
+              createdAt: toISOString(verification.createdAt),
+              updatedAt: toISOString(verification.updatedAt),
               // expire in 5 minutes
-              expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
+              expiresAt: toISOString(new Date(Date.now() + 5 * 60 * 1000)),
             }
             return {
               data: formattedVerification,
