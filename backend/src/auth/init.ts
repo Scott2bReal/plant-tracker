@@ -131,7 +131,9 @@ export const initAuth = (
               // expire in 5 minutes
               expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
             }
-            console.log('Formatted verification:', formattedVerification)
+            console.log(
+              `Formatted create verification: ${formattedVerification}`
+            )
             return {
               data: formattedVerification,
             }
@@ -147,7 +149,9 @@ export const initAuth = (
               // expire in 5 minutes
               expiresAt: toISOString(new Date(Date.now() + 5 * 60 * 1000)),
             }
-            console.log('Formatted verification:', formattedVerification)
+            console.log(
+              `Formatted update verification: ${formattedVerification}`
+            )
             return {
               data: formattedVerification,
             }
