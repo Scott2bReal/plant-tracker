@@ -33,10 +33,10 @@ app.use('*', async (c, next) => await dbMiddleware(c, next))
 // Auth middleware
 app.use('*', async (c, next) => await authMiddleware(c, next))
 
-// app.on(['POST', 'GET'], '/auth/**', (c) => {
-//   const auth = initAuth(c)
-//   return auth.handler(c.req.raw)
-// })
+app.on(['POST', 'GET'], '/auth/**', (c) => {
+  const auth = initAuth(c)
+  return auth.handler(c.req.raw)
+})
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const allRoomsRoute = app.get('/rooms', async (c) => {
