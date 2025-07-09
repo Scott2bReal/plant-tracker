@@ -129,6 +129,7 @@ export const initAuth = (
           before: async (verification) => {
             const formattedVerification = {
               ...verification,
+              createdAt: verification.createdAt?.toISOString(),
               updatedAt: new Date().toISOString(),
               // expire in 5 minutes
               expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
