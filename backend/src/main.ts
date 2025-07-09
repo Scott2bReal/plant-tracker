@@ -5,7 +5,6 @@ import { AnyD1Database, DrizzleD1Database } from 'drizzle-orm/d1'
 import { Hono } from 'hono'
 import { z } from 'zod'
 import { initAuth } from './auth/init'
-import { authMiddleware } from './middleware/auth'
 import { dbMiddleware } from './middleware/db'
 import { rooms } from './schema'
 
