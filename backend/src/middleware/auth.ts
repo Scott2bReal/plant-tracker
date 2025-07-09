@@ -8,7 +8,14 @@ export const authMiddleware = createMiddleware<{
 }>(async (c, next) => {
   console.log('checking auth...')
 
-  const auth = initAuth(c)
+  if (!c.get('auth')) {
+    console.log('No auth instance found, initializing...')
+    c.set('auth', initAuth(c))
+  }
+
+  const auth = c.get('auth')
+  console.log('Auth instance found, proceeding with authentication...', auth)
+
   const session = await auth.api.getSession({ headers: c.req.raw.headers })
 
   if (!session) {
