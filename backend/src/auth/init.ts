@@ -132,7 +132,7 @@ export const initAuth = (
               expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
             }
             console.log(
-              `Formatted create verification: ${formattedVerification}`
+              `Formatted create verification: ${JSON.stringify(formattedVerification, null, 2)}`
             )
             return {
               data: formattedVerification,
