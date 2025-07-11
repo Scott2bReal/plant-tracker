@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/solid-query'
 import { useNavigate } from '@solidjs/router'
-import { type Component, createEffect, createSignal, Show } from 'solid-js'
+import { type Component, createSignal, Show } from 'solid-js'
 import { apiClient } from '../lib/api-client'
 import type { LoginRouteType } from '#backend/src/main'
 
@@ -14,24 +14,18 @@ const Login: Component = () => {
         json: { password: enteredPassword() },
       })
       const json = await response.json()
-      console.log('Login response:', json)
       if ('error' in json) {
         throw new Error(`${json.error}`)
       }
       return json
     },
     onSuccess: (data) => {
-      console.log('Login successful:', data)
       if ('token' in data) {
         localStorage.setItem('plant-tracker-token', data.token)
         navigate('/')
       }
     },
   }))
-
-  createEffect(() => {
-    console.log('isError', loginMutation.isError)
-  })
 
   return (
     <div>
