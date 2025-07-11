@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/solid-query'
 import { useNavigate } from '@solidjs/router'
-import { type Component, createSignal, Show } from 'solid-js'
+import { type Component, createEffect, createSignal, Show } from 'solid-js'
 import { apiClient } from '../lib/api-client'
 import type { LoginRouteType } from '#backend/src/main'
 
@@ -8,25 +8,30 @@ const Login: Component = () => {
   const [enteredPassword, setEnteredPassword] = createSignal('')
   const navigate = useNavigate()
 
-  const {
-    error,
-    mutate: login,
-    isPending,
-  } = useMutation(() => ({
+  const loginMutation = useMutation(() => ({
     mutationFn: async () => {
       const response = await apiClient<LoginRouteType>().api.login.$post({
         json: { password: enteredPassword() },
       })
-      if (!response.ok) {
-        throw new Error('Login failed')
+      const json = await response.json()
+      console.log('Login response:', json)
+      if ('error' in json) {
+        throw new Error(`${json.error}`)
       }
-      return response.json()
+      return json
     },
     onSuccess: (data) => {
-      localStorage.setItem('plant-tracker-token', data.token)
-      navigate('/')
+      console.log('Login successful:', data)
+      if ('token' in data) {
+        localStorage.setItem('plant-tracker-token', data.token)
+        navigate('/')
+      }
     },
   }))
+
+  createEffect(() => {
+    console.log('isError', loginMutation.isError)
+  })
 
   return (
     <div>
@@ -35,7 +40,7 @@ const Login: Component = () => {
         class="mt-8 flex flex-col items-center justify-center gap-4"
         on:submit={(e) => {
           e.preventDefault()
-          login()
+          loginMutation.mutate()
         }}
       >
         <label class="mx-auto flex w-fit flex-col gap-2 text-2xl font-bold text-cyan-900">
@@ -49,12 +54,12 @@ const Login: Component = () => {
         <button
           type="submit"
           class="mx-auto mt-4 w-fit rounded-lg bg-cyan-700 p-2 text-white"
-          disabled={isPending}
+          disabled={loginMutation.isPending}
         >
-          {isPending ? 'Logging in...' : 'Log in'}
+          {loginMutation.isPending ? 'Logging in...' : 'Log in'}
         </button>
-        <Show when={error}>
-          <span class="text-red-600">{error?.message}</span>
+        <Show when={loginMutation.isError}>
+          <span class="text-red-600">{loginMutation.error?.message}</span>
         </Show>
       </form>
     </div>
