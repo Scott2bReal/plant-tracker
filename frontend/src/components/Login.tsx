@@ -1,8 +1,8 @@
-import { useMutation } from '@tanstack/solid-query'
 import { useNavigate } from '@solidjs/router'
+import { useMutation } from '@tanstack/solid-query'
 import { type Component, createSignal, Show } from 'solid-js'
-import { apiClient } from '../lib/api-client'
 import type { LoginRouteType } from '#backend/src/main'
+import { apiClient } from '../lib/api-client'
 
 const Login: Component = () => {
   const [enteredPassword, setEnteredPassword] = createSignal('')

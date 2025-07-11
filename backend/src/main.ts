@@ -2,11 +2,10 @@ import { zValidator } from '@hono/zod-validator'
 import { eq } from 'drizzle-orm'
 import { AnyD1Database, DrizzleD1Database } from 'drizzle-orm/d1'
 import { Hono } from 'hono'
+import { JwtVariables, jwt, sign } from 'hono/jwt'
 import { z } from 'zod'
 import { dbMiddleware } from './middleware/db'
 import { rooms } from './schema'
-import { JwtVariables } from 'hono/jwt'
-import { sign, jwt } from 'hono/jwt'
 
 export interface Bindings {
   DB: AnyD1Database
