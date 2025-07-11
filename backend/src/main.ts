@@ -34,14 +34,12 @@ app.use('*', async (c, next) => {
   return await jwt({ secret: c.env.JWT_SECRET })(c, next)
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const allRoomsRoute = app.get('/rooms', async (c) => {
   const result = await c.var.db.select().from(rooms).execute()
   return c.json(result)
 })
 export type AllRoomsRouteType = typeof allRoomsRoute
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const waterRoomRoute = app.put(
   `/rooms/:id/water`,
   zValidator(
@@ -69,7 +67,6 @@ const waterRoomRoute = app.put(
 )
 export type WaterRoomRouteType = typeof waterRoomRoute
 
-// Login endpoint (no registration, hard-coded password)
 const loginRoute = app.post(
   '/login',
   zValidator(
@@ -83,7 +80,6 @@ const loginRoute = app.post(
     if (password !== c.env.APP_PASSWORD) {
       return c.json({ error: 'Invalid credentials' }, 401)
     }
-    // You can add a username field if you want to distinguish users, or just issue a generic token
     const token = await sign({ role: 'user' }, c.env.JWT_SECRET)
     return c.json({ token })
   }
