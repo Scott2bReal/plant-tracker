@@ -15,7 +15,8 @@
       "**/*.json",
       "**/*.md",
       "!**/node_modules/**",
-      "!**/dist/**"
+      "!**/dist/**",
+      "!**/.wrangler/**"
     ]
   },
   "formatter": {
