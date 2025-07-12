@@ -1,9 +1,10 @@
 import path from 'node:path'
+import { cloudflare } from '@cloudflare/vite-plugin'
 import { defineConfig } from 'vite'
 import solid from 'vite-plugin-solid'
 
 export default defineConfig({
-  plugins: [solid()],
+  plugins: [solid(), cloudflare()],
   resolve: {
     alias: {
       '#frontend': path.resolve(__dirname, 'src'),
