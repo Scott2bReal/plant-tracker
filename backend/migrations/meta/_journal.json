@@ -43,6 +43,13 @@
       "when": 1740336206485,
       "tag": "0005_pretty_hedge_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1752284245230,
+      "tag": "0006_jazzy_nehzno",
+      "breakpoints": true
     }
   ]
 }
