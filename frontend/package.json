@@ -12,10 +12,10 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "types": "tsc -b --noEmit --pretty",
-    "lint": "biome lint",
-    "lint:fix": "biome lint --fix",
-    "format": "oxfmt --check",
-    "format:fix": "oxfmt --write"
+    "lint": "oxlint --config=../.oxlintrc.json",
+    "lint:fix": "oxlint --fix --config=../.oxlintrc.json",
+    "format": "oxfmt --check --config=../.oxfmtrc.json",
+    "format:fix": "oxfmt --write --config=../.oxfmtrc.json"
   },
   "dependencies": {
     "@solidjs/router": "^0.16.1",

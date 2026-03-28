@@ -9,12 +9,10 @@
     "deploy": "wrangler deploy --minify",
     "db-migrate": "wrangler d1 migrations apply plant_tracker --remote",
     "types": "tsc --noEmit --pretty",
-    "lint": "biome lint",
-    "lint:fix": "biome lint --fix",
-    "format": "oxfmt --check",
-    "format:fix": "oxfmt --write",
-    "check": "biome check",
-    "check:fix": "biome check --fix"
+    "lint": "oxlint --config=../.oxlintrc.json",
+    "lint:fix": "oxlint --fix --config=../.oxlintrc.json",
+    "format": "oxfmt --check --config=../.oxfmtrc.json",
+    "format:fix": "oxfmt --write --config=../.oxfmtrc.json"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.4.3",
