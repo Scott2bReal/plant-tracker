@@ -1,6 +1,7 @@
 import { Route, Router } from '@solidjs/router'
 import { QueryClient, QueryClientProvider } from '@tanstack/solid-query'
 import { lazy } from 'solid-js'
+import './index.css'
 
 import Layout from './components/Layout'
 
