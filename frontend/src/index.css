@@ -1,3 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --background-image: linear-gradient(to right, rgb(20 184 166), rgb(14 116 144), rgb(20 184 166));
+}
