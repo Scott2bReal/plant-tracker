@@ -52,7 +52,7 @@ const Room: Component<Room> = (room) => {
   return (
     <div class="relative mx-auto grid w-full grid-cols-3 items-center pb-2 text-cyan-900">
       <div class="col-span-2 text-left">
-        <h2 class="whitespace-nowrap text-xl font-semibold lg:text-3xl">
+        <h2 class="text-xl font-semibold whitespace-nowrap lg:text-3xl">
           {room.name}
         </h2>
         <p
@@ -75,7 +75,7 @@ const Room: Component<Room> = (room) => {
       <button
         type="button"
         title="Water room"
-        class="mx-auto h-1/2 w-full scale-100 rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[pressed=true]:scale-95 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600 lg:data-[pressed=false]:hover:scale-105 lg:data-[pressed=false]:disabled:hover:scale-100"
+        class="mx-auto h-1/2 w-full scale-100 rounded bg-cyan-600 p-2 text-center text-white shadow-md shadow-cyan-800 transition duration-100 ease-in-out disabled:cursor-not-allowed disabled:bg-cyan-600/50 data-[isDire=true]:animate-pulse data-[isDire=true]:bg-red-600 data-[pressed=true]:scale-95 lg:data-[pressed=false]:hover:scale-105 lg:data-[pressed=false]:disabled:hover:scale-100"
         disabled={waterRoomMutation.isPending}
         data-isLoading={waterRoomMutation.isPending}
         data-isDire={isDire()}

@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": false,
+  "printWidth": 80,
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "sortTailwindcss": {
+    "stylesheet": "./frontend/src/index.css"
+  },
+  "ignorePatterns": []
+}
