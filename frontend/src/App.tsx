@@ -5,7 +5,7 @@ import './index.css'
 
 import Layout from './components/Layout'
 
-const AllRooms = lazy(() => import('./components/AllRooms'))
+const AllRooms = lazy(() => import('./components/AllRooms'));
 const Login = lazy(() => import('./components/Login'))
 const NotFound = lazy(() => import('./components/NotFound'))
 

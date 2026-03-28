@@ -14,8 +14,8 @@
     "types": "tsc -b --noEmit --pretty",
     "lint": "biome lint",
     "lint:fix": "biome lint --fix",
-    "format": "biome format",
-    "format:fix": "biome format --write"
+    "format": "oxfmt --check",
+    "format:fix": "oxfmt --write"
   },
   "dependencies": {
     "@solidjs/router": "^0.16.1",
@@ -26,7 +26,6 @@
     "solid-js": "^1.9.12"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.4",
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/solid-query-devtools": "^5.81.5",
     "tailwindcss": "4.2.2",
