@@ -30,7 +30,7 @@ app.use('*', async (c, next) => {
   if (c.req.path === '/api/login') {
     return await next()
   }
-  return await jwt({ secret: c.env.JWT_SECRET })(c, next)
+  return await jwt({ secret: c.env.JWT_SECRET, alg: 'HS256' })(c, next)
 })
 
 const allRoomsRoute = app.get('/rooms', async (c) => {
